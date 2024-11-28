@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-user-circle"></i> Profile Information</h4>
+            </div>
+            <div class="card-body">
+                <!-- Account Information -->
+                <h5 class="border-bottom pb-2 mb-3">Account Information</h5>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <p><strong>Username:</strong> {{ current_user.username }}</p>
+                        <p><strong>Email:</strong> {{ current_user.email }}</p>
+                        <p><strong>Account Created:</strong> {{ current_user.created_at.strftime('%Y-%m-%d') }}</p>
+                        <p><strong>Last Login:</strong> {{ current_user.last_login.strftime('%Y-%m-%d %H:%M:%S') if current_user.last_login else 'Never' }}</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <a href="{{ url_for('auth.change_password') }}" class="btn btn-outline-primary">
+                            <i class="fas fa-key"></i> Change Password
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Company Information -->
+                <h5 class="border-bottom pb-2 mb-3">Company Information</h5>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <p><strong>Company Name:</strong> {{ current_user.company_name }}</p>
+                        <p><strong>Address:</strong> {{ current_user.address }}</p>
+                        <p><strong>Phone:</strong> {{ current_user.phone }}</p>
+                    </div>
+                </div>
+
+                <!-- Business Identifiers -->
+                <h5 class="border-bottom pb-2 mb-3">Business Identifiers</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>NIF:</strong> {{ current_user.nif }}</p>
+                        <p><strong>NIS:</strong> {{ current_user.nis }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>RC:</strong> {{ current_user.rc }}</p>
+                        <p><strong>Article d'Imposition:</strong> {{ current_user.art }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Statistics -->
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card text-center bg-primary text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Products</h5>
+                        <p class="card-text display-4">{{ current_user.products.count() }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center bg-success text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Clients</h5>
+                        <p class="card-text display-4">{{ current_user.clients.count() }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center bg-info text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Invoices</h5>
+                        <p class="card-text display-4">{{ current_user.invoices.count() }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
